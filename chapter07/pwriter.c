@@ -56,6 +56,7 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
+	// Pool object pointer
 	PMEMobjpool *pop = pmemobj_create(argv[1], 
 		LAYOUT_NAME, PMEMOBJ_MIN_POOL, 0666);
 
@@ -64,9 +65,11 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
+	// Locate the root object
 	PMEMoid root = pmemobj_root(pop, 
 		sizeof(struct my_root));
 
+	// Get a pointer to the root object
 	struct my_root *rootp = pmemobj_direct(root);
 
 	char buf[MAX_BUF_LEN] = "Hello PMEM World";

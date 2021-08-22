@@ -40,7 +40,7 @@
 #include <libpmemobj.h>
 
 #define die(...) do {fprintf(stderr, __VA_ARGS__); exit(1);} while(0)
-#define POOL "/mnt/pmem/balance"
+#define POOL "/optane/nazhou/pm-test/balance"
 
 static PMEMobjpool *pool;
 

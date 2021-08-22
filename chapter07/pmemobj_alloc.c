@@ -41,7 +41,7 @@
 #include <libpmemobj.h>
 
 #define die(...) do {fprintf(stderr, __VA_ARGS__); exit(1);} while(0)
-#define POOL "/mnt/pmem/paintball"
+#define POOL "/optane/nazhou/pm-test/paintball"
 #define LAYOUT "paintball"
 
 typedef uint32_t color;
@@ -62,10 +62,13 @@ int main()
             die("Couldn't open pool: %m\n");
         
     }
+
+    // Six slots
     PMEMoid root = pmemobj_root(pool, sizeof(PMEMoid) * 6);
     if (OID_IS_NULL(root))
         die("Couldn't access root object.\n");
-
+    
+    // Obtain a pointer to an offset within the pool
     PMEMoid *chamber = (PMEMoid *)pmemobj_direct(root) + (getpid() % 6);
     if (OID_IS_NULL(*chamber)) {
         printf("Reloading.\n");
