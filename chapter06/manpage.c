@@ -51,7 +51,7 @@
 /* Using 4K of pmem for this example */
 #define PMEM_LEN 4096
 
-#define PATH "/pmem-fs/myfile"
+#define PATH "/optane/nazhou/pm-test/manpage"
 
 int
 main(int argc, char *argv[])

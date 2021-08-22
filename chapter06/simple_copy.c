@@ -52,8 +52,8 @@
 #include <string.h>
 #include <libpmem.h>
 
-/* Just copying 4K to pmem for this example */
-#define BUF_LEN 4096
+/* Just copying 5 bytes to pmem for this example */
+#define BUF_LEN 5
 
 int
 main(int argc, char *argv[])

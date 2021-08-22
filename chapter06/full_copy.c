@@ -52,8 +52,8 @@
 #include <string.h>
 #include <libpmem.h>
 
-/* Copying 4K at a time to pmem for this example */
-#define BUF_LEN 4096
+/* Copying 5 bytes at a time to pmem for this example */
+#define BUF_LEN 5
 
 /*
  * do_copy_to_pmem
