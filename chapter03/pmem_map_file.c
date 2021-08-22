@@ -67,6 +67,8 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
+	printf("is_pmem: %d\n", is_pmem);
+
 	/* Store a string to the persistent memory. */
 	char s[] = "This is new data written to the file";
 	strcpy(pmemaddr, s);
