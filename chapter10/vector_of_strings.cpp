@@ -50,8 +50,8 @@ typedef libmemkind::pmem::allocator<pmem_string> vec_alloc_type;
 typedef std::vector<pmem_string, std::scoped_allocator_adaptor<vec_alloc_type> > vector_type;
 
 int main(int argc, char *argv[]) {
-	const size_t pmem_max_size = 64 * 1024 * 1024; //64 MB
-	const std::string pmem_dir("/daxfs");
+	const size_t pmem_max_size = 32 * 1024 * 1024; //32 MB
+	const std::string pmem_dir("/optane/nazhou");
 
 	// Create allocator object
 	vec_alloc_type alc(pmem_dir, pmem_max_size);
@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
 
 	v.emplace_back("Foo");
 	v.emplace_back("Bar");
+	/* Foo Bar */
 
 	for (auto str : v) {
 		std::cout << str << std::endl;

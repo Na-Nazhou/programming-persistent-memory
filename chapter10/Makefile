@@ -48,7 +48,7 @@ listings: $(TARGETS_LISTINGS)
 	$(CXX) -g -o $@ $< -lmemkind -std=c++11
 
 %: %.c
-	$(CC) -g -o $@ $< -lmemkind -lvmemcache
+	$(CC) -g -o $@ $< -lmemkind
 
 clean:
 	$(RM) *.o core a.out

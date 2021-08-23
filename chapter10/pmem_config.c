@@ -41,8 +41,7 @@
 #include <stdlib.h>
 
 #define PMEM_MAX_SIZE (1024 * 1024 * 32)
-
-char path[PATH_MAX] = "/daxfs";
+#define PATH "/optane/nazhou"
 
 void memkind_fatal(int err)
 {
@@ -59,17 +58,6 @@ int main(int argc, char *argv[])
 	struct memkind *pmem_kind;
 	int err;
 
-	if (argc > 2) {
-		fprintf(stderr,
-			"Usage: %s [pmem_kind_dir_path]\n",
-			argv[0]);
-		exit(1);
-	} else if (argc == 2 &&
-		(realpath(argv[1], path) == NULL)) {
-		perror(argv[1]);
-		exit(1);
-	}
-
 	struct memkind_config *test_cfg =
 		memkind_config_new();
 	if (test_cfg == NULL) {
@@ -78,7 +66,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	memkind_config_set_path(test_cfg, path);
+	memkind_config_set_path(test_cfg, PATH);
 	memkind_config_set_size(test_cfg, PMEM_MAX_SIZE);
 	memkind_config_set_memory_usage_policy(test_cfg,
 		MEMKIND_MEM_USAGE_POLICY_CONSERVATIVE);

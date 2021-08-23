@@ -40,7 +40,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char path[PATH_MAX] = "/daxfs";
+#define PATH "/optane/nazhou"
 
 void memkind_fatal(int err)
 {
@@ -59,18 +59,8 @@ int main(int argc, char *argv[])
 	void *buf0;
 	void *buf1;
 
-	if (argc > 2) {
-		fprintf(stderr,
-			"Usage: %s [pmem_kind_dir_path]\n",
-			argv[0]);
-		exit(1);
-	} else if (argc == 2 && (realpath(argv[1], path)
-		== NULL)) {
-		perror(argv[1]);
-		exit(1);
-	}
-
-	err = memkind_create_pmem(path, 0, &pmem_kind);
+	// Create a PMEM kind with variable size
+	err = memkind_create_pmem(PATH, 0, &pmem_kind);
 	if (err) {
 		memkind_fatal(err);
 	}
@@ -81,6 +71,12 @@ int main(int argc, char *argv[])
 
 	/* look up the kind of an allocation */
 	if (memkind_detect_kind(buf0) == MEMKIND_DEFAULT) {
+		printf("buf0 is DRAM\n");
+	} else {
+		printf("buf0 is pmem\n");
+	}
+
+	if (memkind_detect_kind(buf1) == MEMKIND_DEFAULT) {
 		printf("buf0 is DRAM\n");
 	} else {
 		printf("buf0 is pmem\n");
