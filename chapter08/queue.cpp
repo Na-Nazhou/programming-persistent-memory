@@ -106,10 +106,12 @@ main(int argc, char *argv[])
 				break;
 			}
 			case EXIT: {
+				pool.close();
 				exit(0);
 			}
 			default: {
 				std::cerr << "unknown ops" << std::endl;
+				pool.close();
 				exit(0);
 			}
 		}
