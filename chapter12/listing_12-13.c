@@ -63,6 +63,8 @@ int main(int argc, char *argv[]) {
 
     // write and flush
     *data = 1234;
+
+    // fix
     flush((void *)data, sizeof(int));
 
     // unmap and un-register

@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
         TOID(struct my_root) root 
             = POBJ_ROOT(pop, struct my_root);
         
+        // fix
         // adding full root to the transaction
         TX_ADD(root);         
         

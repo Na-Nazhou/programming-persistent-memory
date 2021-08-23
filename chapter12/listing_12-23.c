@@ -59,8 +59,12 @@ int main(int argc, char *argv[]) {
     data = &(ptr[1]);
     flag = &(ptr[0]);
     *data = 1234;
+
+    // fix 1
     flush((void *) data, sizeof(int));
     *flag = 1;
+
+    // fix 2
     flush((void *) flag, sizeof(int));
 
     munmap(ptr, 2 * sizeof(int));

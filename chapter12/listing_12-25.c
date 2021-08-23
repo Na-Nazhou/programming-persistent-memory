@@ -54,6 +54,7 @@ int main(int argc, char *argv[]) {
             = POBJ_ROOT(pop, struct my_root);
         
         // adding root.value to the transaction
+        // root.is_odd is not added
         TX_ADD_FIELD(root, value);
         
         D_RW(root)->value = 4;
