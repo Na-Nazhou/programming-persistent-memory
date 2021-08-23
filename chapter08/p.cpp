@@ -36,6 +36,7 @@
 #include <libpmemobj++/pext.hpp>
 #include <libpmemobj++/persistent_ptr.hpp>
 
+// data is not snapshotted automatically
 struct bad_example {
 	int some_int;
 	float some_float;
@@ -52,8 +53,8 @@ struct root {
 };
 
 int main(int argc, char *argv[]) {
-	// pool created using: pmempool create obj -s 8M -l p /daxfs/file
-	auto pop = pmem::obj::pool<root>::open("/daxfs/file", "p");
+	// pool created using: pmempool create obj -l p /optane/nazhou/pm-test/p
+	auto pop = pmem::obj::pool<root>::open("/optane/nazhou/pm-test/p", "p");
 
 	auto r = pop.root();
 

@@ -50,8 +50,8 @@ struct root {
 };
 
 int main(int argc, char *argv[]) {
-	// pool created using: pmempool create obj -s 8M -l lx /daxfs/file
-	auto pop = pmem::obj::pool<root>::open("/daxfs/file", "tx");
+	// pool created using: pmempool create obj -l allocation /optane/nazhou/pm-test/allocation
+	auto pop = pmem::obj::pool<root>::open("/optane/nazhou/pm-test/allocation", "allocation");
 
 	auto r = pop.root();
 
@@ -62,6 +62,8 @@ int main(int argc, char *argv[]) {
 	pmem::obj::transaction::run(pop, [&]() {
 		pmem::obj::delete_persistent<my_data>(r->mdata);
 	});
+
+	// cannot be done inside a transaction
 	pmem::obj::make_persistent_atomic<my_data>(pop, r->mdata, 2, 3);
 
 	return 0;

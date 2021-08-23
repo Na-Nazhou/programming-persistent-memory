@@ -42,8 +42,8 @@ struct root {
 };
 
 int main(int argc, char *argv[]) {
-	// pool created using: pmempool create obj -s 8M -l lx /daxfs/file
-	auto pop = pmem::obj::pool<root>::open("/daxfs/file", "tx");
+	// pool created using: pmempool create obj -l volatile=ptrs /optane/nazhou/pm-test/volatile-ptrs
+	auto pop = pmem::obj::pool<root>::open("/optane/nazhou/pm-test/volatile-ptrs", "volatile-trs");
 
 	auto r = pop.root();
 

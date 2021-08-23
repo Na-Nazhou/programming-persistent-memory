@@ -34,18 +34,15 @@
 
 .SUFFIXES: .lst
 
-all: transaction p allocation listings non_trivial_copy volatile_pointers queue containers
+all: p allocation listings non_trivial_copy volatile_pointers queue containers
 
-listings: transaction.lst p.lst allocation.lst non_trivial_copy.lst volatile_pointers.lst persistent_queue.lst volatile_queue.lst queue.lst containers.lst
+listings: p.lst allocation.lst non_trivial_copy.lst volatile_pointers.lst persistent_queue.lst volatile_queue.lst queue.lst containers.lst
 
 %.lst: %.cpp
 	cat -n $^ > $@
 
 %.lst: %.hpp
 	cat -n $^ > $@
-
-transaction: transaction.cpp
-	$(CXX) -std=c++11 -o transaction transaction.cpp -lpmemobj
 
 p: p.cpp
 	$(CXX) -std=c++11 -o p p.cpp -lpmemobj

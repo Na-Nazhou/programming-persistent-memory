@@ -63,7 +63,7 @@ static PMEMoid new_account(const char *name, int deposit)
     int len = strlen(name) + 1;
 
     struct pobj_action act[2];
-    PMEMoid str = pmemobj_reserve(pool, act + 0, len, 0);
+    PMEMoid str = pmemobj_reserve(pool, &act[0], len, 0);
     if (OID_IS_NULL(str))
         die("Can't allocate string: %m\n");
     /*
@@ -72,7 +72,7 @@ static PMEMoid new_account(const char *name, int deposit)
      */
     pmemobj_memcpy(pool, pmemobj_direct(str), name, len, PMEMOBJ_F_MEM_NODRAIN);
     TOID(struct account) acc;
-    PMEMoid acc_oid = pmemobj_reserve(pool, act + 1, sizeof(struct account), 1);
+    PMEMoid acc_oid = pmemobj_reserve(pool, &act[1], sizeof(struct account), 1);
     TOID_ASSIGN(acc, acc_oid);
     if (TOID_IS_NULL(acc))
         die("Can't allocate account: %m\n");

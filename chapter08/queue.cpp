@@ -74,7 +74,7 @@ main(int argc, char *argv[])
 		pool = pmem::obj::pool<queue>::open(path, "queue");
 	} catch(pmem::pool_error &e) {
 		std::cerr << e.what() << std::endl;
-		std::cerr << "To create pool run: pmempool create obj --layout=queue -s 100M path_to_pool" << std::endl;
+		std::cerr << "To create pool run: pmempool create obj --layout=queue path_to_pool" << std::endl;
 	}
 
 	auto q = pool.root();

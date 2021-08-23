@@ -56,7 +56,8 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 
-	// Pool object pointer
+	// Pool object pointer (POP) => reside in volatile memory
+	// Keeps track of metadata related to the pool: offset to the root object
 	PMEMobjpool *pop = pmemobj_create(argv[1], 
 		LAYOUT_NAME, PMEMOBJ_MIN_POOL, 0666);
 

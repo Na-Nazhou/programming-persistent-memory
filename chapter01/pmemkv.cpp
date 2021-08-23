@@ -48,7 +48,7 @@ using std::string;
  * for this example, create a 1 Gig file
  * called "/daxfs/kvfile"
  */
-auto PATH = "/daxfs/kvfile";
+auto PATH = "/optane/nazhou/pm-test/kvfile";
 const uint64_t SIZE = 1024 * 1024 * 1024;
 
 /*
