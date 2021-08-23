@@ -123,19 +123,17 @@ main(int argc, char *argv[])
 					break;
 				}
 				case EXIT: {
-					break;
+					pop.close();
+					exit(0);
 				}
 				default: {
 					std::cerr << "usage: [get key|put key value|exit]" << std::endl;
-					continue;
+					pop.close();
+					exit(0);
 				}
 			}
 		}
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
-
-	pop.close();
-
-	return 0;
 }
