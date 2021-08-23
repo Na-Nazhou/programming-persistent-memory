@@ -49,6 +49,15 @@
 #include <libpmemobj++/container/string.hpp>
 #include <libpmemobj++/container/vector.hpp>
 
+// Separate chaining
+// buckets: array of list of (key, value_index) pairs
+// values: array of Values
+
+// Steps:
+// Get the bucket_index from key hash, locate the bucket O(1)
+// Iterate through the pairs in the bucket, locate the pair O(L)
+// Get the value from value_index
+
 /**
  * Value - type of the value stored in hashmap
  * N - number of buckets in hashmap

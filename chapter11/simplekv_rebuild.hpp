@@ -53,8 +53,33 @@
 #include <libpmemobj++/container/string.hpp>
 #include <libpmemobj++/container/vector.hpp>
 
+// Separate chaining
+// buckets: array of list of (key, value_index) pairs => stored in DRAM
+// values: array of Values => stored in PMEM
+// keys: array of keys => stored in PMEM
+
+// Steps:
+// Get the bucket_index from key hash, locate the bucket O(1)
+// Iterate through the pairs in the bucket, locate the pair O(L)
+// Get the value from value_index
+
+/**
+ * Class which is stored on persistent memory.
+ * Value - type of the value stored in hashmap
+ * N - number of buckets in hashmap
+ */
 template <typename Value, std::size_t N>
-struct simple_kv_persistent;
+struct simple_kv_persistent {
+	using key_type = pmem::obj::string;
+	using value_vector = pmem::obj::vector<Value>;
+	using key_vector = pmem::obj::vector<key_type>;
+
+	/* values and keys are stored in separate vectors to optimize
+	 * snapshotting. If they were stored as a pair in single vector
+	 * entire pair would have to be snapshotted in case of value update */
+	value_vector values;
+	key_vector keys;
+};
 
 /**
  * This class is runtime wrapper for simple_kv_peristent.
@@ -130,22 +155,4 @@ public:
 
 		buckets[index].emplace_back(key, data->values.size() - 1);
 	}
-};
-
-/**
- * Class which is stored on persistent memory.
- * Value - type of the value stored in hashmap
- * N - number of buckets in hashmap
- */
-template <typename Value, std::size_t N>
-struct simple_kv_persistent {
-	using key_type = pmem::obj::string;
-	using value_vector = pmem::obj::vector<Value>;
-	using key_vector = pmem::obj::vector<key_type>;
-
-	/* values and keys are stored in separate vectors to optimize
-	 * snapshotting. If they were stored as a pair in single vector
-	 * entire pair would have to be snapshotted in case of value update */
-	value_vector values;
-	key_vector keys;
 };

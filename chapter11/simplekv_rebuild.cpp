@@ -55,7 +55,7 @@ int
 main(int argc, char *argv[])
 {
 	if (argc < 2) {
-		std::cerr << "usage: " << argv[0] << " file-name" << std::endl;
+		std::cerr << "usage: " << argv[0] << " path_to_pool" << std::endl;
 		return 1;
 	}
 
@@ -75,10 +75,10 @@ main(int argc, char *argv[])
 
 		auto runtime_kv = simple_kv_runtime<int, 10>(r->kv.get());
 
-		std::cout << "usage: [get key|put key value|exit]" << std::endl;
-
 		std::string op;
 		while (std::cin >> op) {
+			std::cout << "usage: [get key|put key value|exit]" << std::endl;
+
 			std::string key;
 			int value;
 
@@ -100,7 +100,7 @@ main(int argc, char *argv[])
 	} catch (pmem::pool_error &e) {
 		std::cerr << e.what() << std::endl;
 		std::cerr
-			<< "To create pool run: pmempool create obj --layout=simplekv_rebuild -s 100M path_to_pool"
+			<< "To create pool run: pmempool create obj --layout=simplekv_rebuild path_to_pool"
 			<< std::endl;
 	} catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;

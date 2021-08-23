@@ -49,12 +49,13 @@ int main()
 	pmem::obj::pool<root> pop;
 
 	try {
-		pop = pmem::obj::pool<root>::create("/daxfs/pmpool", "data_oriented",
+		pop = pmem::obj::pool<root>::create("/optane/nazhou/data_oriented", "data_oriented",
 						PMEMOBJ_MIN_POOL, 0666);
 
 		auto root = pop.root();
 
 		pmem::obj::transaction::run(pop, [&]{
+			// Snapshotting the entire array at once
 			pmem::obj::transaction::snapshot(&root->soa_records);
 			for (int i = 0; i < 1000; i++) {
 				root->soa_records.a[i]++;
